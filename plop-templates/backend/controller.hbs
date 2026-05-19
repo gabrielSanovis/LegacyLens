@@ -1,0 +1,37 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
+import { {{pascalCase name}}Service } from './{{dashCase name}}.service';
+import { Create{{pascalCase name}}Input } from '../../../domain/entities/{{dashCase name}}.entity';
+
+@Controller('api/v1/{{dashCase name}}s')
+export class {{pascalCase name}}Controller {
+  constructor(
+    private readonly service: {{pascalCase name}}Service,
+  ) {}
+
+  @Post()
+  create(@Body() input: Create{{pascalCase name}}Input) {
+    return this.service.create(input);
+  }
+
+  @Get()
+  findAll() {
+    return this.service.findAll();
+  }
+
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.service.findById(id);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.service.delete(id);
+  }
+}

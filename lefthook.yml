@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: lint-backend
+      root: backend/
+      glob: "*.{ts,tsx}"
+      run: npx eslint {staged_files}
+
+    - name: lint-frontend
+      root: frontend/
+      glob: "*.{ts,tsx}"
+      run: npx eslint {staged_files}

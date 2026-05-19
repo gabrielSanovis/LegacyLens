@@ -1,0 +1,30 @@
+import { Injectable } from '@nestjs/common';
+import {
+  {{pascalCase name}},
+  Create{{pascalCase name}}Input,
+} from '../../../domain/entities/{{dashCase name}}.entity';
+
+@Injectable()
+export class {{pascalCase name}}Service {
+  async create(
+    input: Create{{pascalCase name}}Input,
+  ): Promise<{{pascalCase name}}> {
+    // TODO: implement persistence
+    throw new Error('Not implemented');
+  }
+
+  async findAll(): Promise<{{pascalCase name}}[]> {
+    // TODO: implement persistence
+    throw new Error('Not implemented');
+  }
+
+  async findById(id: string): Promise<{{pascalCase name}} | null> {
+    // TODO: implement persistence
+    throw new Error('Not implemented');
+  }
+
+  async delete(id: string): Promise<void> {
+    // TODO: implement persistence
+    throw new Error('Not implemented');
+  }
+}
