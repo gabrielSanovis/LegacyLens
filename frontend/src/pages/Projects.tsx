@@ -55,6 +55,11 @@ export function Projects() {
     navigate('/');
   }
 
+  async function handleIngest(id: string) {
+    await apiFetch(`/projects/${id}/ingest`, { method: 'POST' });
+    navigate(`/projects/${id}`);
+  }
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -103,12 +108,20 @@ export function Projects() {
                 {p.repoUrl && (
                   <p className={styles.repo}>{p.repoUrl}</p>
                 )}
-                <button
-                  className={styles.deleteBtn}
-                  onClick={() => handleDelete(p.id)}
-                >
-                  Remover
-                </button>
+                <div className={styles.actions}>
+                  <button
+                    className={styles.ingestBtn}
+                    onClick={() => handleIngest(p.id)}
+                  >
+                    Iniciar Ingestão
+                  </button>
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => handleDelete(p.id)}
+                  >
+                    Remover
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

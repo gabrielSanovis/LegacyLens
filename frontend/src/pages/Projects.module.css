@@ -136,3 +136,24 @@
 .deleteBtn:hover {
   background: rgba(255, 100, 100, 0.1);
 }
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.ingestBtn {
+  background: rgba(124, 92, 252, 0.1);
+  border: 1px solid rgba(124, 92, 252, 0.3);
+  border-radius: 6px;
+  color: #a78bfa;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ingestBtn:hover {
+  background: rgba(124, 92, 252, 0.2);
+}
