@@ -20,15 +20,15 @@ export class GraphLoaderService {
     session: Session,
     projectId: string,
     sagas: ExtractedSaga[],
+    nodeIds: Record<string, number>,
   ) {
     for (const saga of sagas) {
-      await session.run(
-        `
-        MERGE (m:Module {project_id: $projectId, file_path: $filePath})
-        MERGE (s:Saga {project_id: $projectId, file_path: $filePath, name: $name})
-        MERGE (m)-[:DEFINES]->(s)
-        SET s.start_line = $startLine, s.end_line = $endLine, s.loc = $loc
-      `,
+      const result = await session.run(
+        'MERGE (m:Module {project_id: $projectId, file_path: $filePath}) ' +
+          'MERGE (s:Saga {project_id: $projectId, file_path: $filePath, name: $name}) ' +
+          'MERGE (m)-[:DEFINES]->(s) ' +
+          'SET s.start_line = $startLine, s.end_line = $endLine, s.loc = $loc ' +
+          'RETURN id(s) as nodeId',
         {
           projectId,
           filePath: saga.file_path,
@@ -38,6 +38,12 @@ export class GraphLoaderService {
           loc: saga.loc,
         },
       );
+      if (result.records.length > 0) {
+        const nodeId = result.records[0].get('nodeId') as {
+          toNumber(): number;
+        };
+        nodeIds[`Saga:${saga.file_path}:${saga.name}`] = nodeId.toNumber();
+      }
     }
   }
 
@@ -45,15 +51,15 @@ export class GraphLoaderService {
     session: Session,
     projectId: string,
     reducers: ExtractedReducer[],
+    nodeIds: Record<string, number>,
   ) {
     for (const reducer of reducers) {
-      await session.run(
-        `
-        MERGE (m:Module {project_id: $projectId, file_path: $filePath})
-        MERGE (r:Reducer {project_id: $projectId, file_path: $filePath, name: $name})
-        MERGE (m)-[:DEFINES]->(r)
-        SET r.slice_name = $sliceName
-      `,
+      const result = await session.run(
+        'MERGE (m:Module {project_id: $projectId, file_path: $filePath}) ' +
+          'MERGE (r:Reducer {project_id: $projectId, file_path: $filePath, name: $name}) ' +
+          'MERGE (m)-[:DEFINES]->(r) ' +
+          'SET r.slice_name = $sliceName ' +
+          'RETURN id(r) as nodeId',
         {
           projectId,
           filePath: reducer.file_path,
@@ -61,6 +67,13 @@ export class GraphLoaderService {
           sliceName: reducer.slice_name,
         },
       );
+      if (result.records.length > 0) {
+        const nodeId = result.records[0].get('nodeId') as {
+          toNumber(): number;
+        };
+        nodeIds[`Reducer:${reducer.file_path}:${reducer.name}`] =
+          nodeId.toNumber();
+      }
     }
   }
 
@@ -68,12 +81,14 @@ export class GraphLoaderService {
     session: Session,
     projectId: string,
     actions: ExtractedAction[],
+    nodeIds: Record<string, number>,
   ) {
     for (const action of actions) {
-      await session.run(
+      const result = await session.run(
         `
         MERGE (a:Action {project_id: $projectId, type_string: $typeString})
         SET a.file_path = $filePath
+        RETURN id(a) as nodeId
       `,
         {
           projectId,
@@ -81,6 +96,12 @@ export class GraphLoaderService {
           filePath: action.file_path,
         },
       );
+      if (result.records.length > 0) {
+        const nodeId = result.records[0].get('nodeId') as {
+          toNumber(): number;
+        };
+        nodeIds[`Action:${action.type_string}`] = nodeId.toNumber();
+      }
     }
   }
 
@@ -131,18 +152,23 @@ export class GraphLoaderService {
     }
   }
 
-  async loadGraph(projectId: string, graph: ExtractedGraph) {
+  async loadGraph(
+    projectId: string,
+    graph: ExtractedGraph,
+  ): Promise<Record<string, number>> {
     const session = this.neo4jService.getDriver().session();
+    const nodeIds: Record<string, number> = {};
     try {
       this.logger.log(`Loading graph for project ${projectId} into Neo4j`);
 
-      await this.loadSagas(session, projectId, graph.sagas);
-      await this.loadReducers(session, projectId, graph.reducers);
-      await this.loadActions(session, projectId, graph.actions);
+      await this.loadSagas(session, projectId, graph.sagas, nodeIds);
+      await this.loadReducers(session, projectId, graph.reducers, nodeIds);
+      await this.loadActions(session, projectId, graph.actions, nodeIds);
       await this.loadWatches(session, projectId, graph.edges.watches);
       await this.loadImports(session, projectId, graph.imports);
 
       this.logger.log(`Graph loaded successfully for project ${projectId}`);
+      return nodeIds;
     } catch (error) {
       this.logger.error(
         `Error loading graph to Neo4j: ${(error as Error).message}`,

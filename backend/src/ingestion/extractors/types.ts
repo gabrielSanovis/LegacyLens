@@ -19,11 +19,24 @@ export interface ExtractedReducer {
   name: string;
   file_path: string;
   slice_name: string;
+  start_line?: number;
+  end_line?: number;
 }
 
 export interface ExtractedAction {
   type_string: string;
   file_path: string;
+  payload_shape?: string;
+  start_line?: number;
+  end_line?: number;
+}
+
+export interface ExtractedSelector {
+  name: string;
+  file_path: string;
+  return_type?: string;
+  start_line?: number;
+  end_line?: number;
 }
 
 export interface ExtractedImport {
@@ -56,11 +69,12 @@ export interface ExtractedGraph {
   sagas: ExtractedSaga[];
   reducers: ExtractedReducer[];
   actions: ExtractedAction[];
+  selectors?: ExtractedSelector[];
   imports: ExtractedImport[];
   edges: {
     watches: ExtractedWatch[];
     dispatches: ExtractedDispatch[];
     calls: ExtractedCall[];
-    selects: any[];
+    selects: unknown[];
   };
 }

@@ -95,3 +95,14 @@ model Artifact {
 
   @@map("artifacts")
 }
+
+model SystemSetting {
+  id          String   @id @default("global")
+  llmProvider String   @default("openrouter")
+  apiKey      String?
+  modelName   String?
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}
+

@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Parser, Language } from 'web-tree-sitter';
+import Parser, { Language } from 'web-tree-sitter';
 import * as path from 'path';
 
 @Injectable()

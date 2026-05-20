@@ -66,6 +66,8 @@ export class EdgeExtractorService {
           name: 'Slice',
           file_path: filePath,
           slice_name: 'Unknown',
+          start_line: node.startPosition.row + 1,
+          end_line: node.endPosition.row + 1,
         });
       }
     }
