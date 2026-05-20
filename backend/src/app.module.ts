@@ -6,6 +6,7 @@ import { SettingsModule } from './api/v1/settings/settings.module';
 import { GraphModule } from './infra/graph/graph.module';
 import { QueueModule } from './infra/queue/queue.module';
 import { IngestionModule } from './ingestion/ingestion.module';
+import { ComprehensionApiModule } from './api/v1/comprehension/comprehension-api.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { IngestionModule } from './ingestion/ingestion.module';
     GraphModule,
     QueueModule,
     IngestionModule,
+    ComprehensionApiModule,
   ],
 })
 export class AppModule {}

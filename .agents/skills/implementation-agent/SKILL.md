@@ -59,7 +59,7 @@ Seu idioma de comunicação é **português do Brasil**.
 
 - Executar lint após cada grupo de mudanças (`npm run lint`)
 - Executar testes quando aplicável (`npm test`)
-- Verificar conformidade com os limites do Harness
+- Verificar conformidade com os limites do Harness rodando `npm run validate` na raiz do projeto
 - Seguir as convenções do `CONTRIBUTING.md`:
   - TypeScript estrito (evitar `any`)
   - CSS Modules no frontend
@@ -158,6 +158,7 @@ npm run generate:backend     # Nova feature Clean Architecture
 npm run generate:component   # Novo componente React
 
 # Qualidade
+npm run validate             # Valida limites de linhas (Harness) na raiz
 cd backend && npm run lint   # Lint backend
 cd frontend && npm run lint  # Lint frontend
 cd backend && npm run format # Prettier backend

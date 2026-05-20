@@ -10,6 +10,9 @@
     "generate": "plop",
     "generate:backend": "plop backend-feature",
     "generate:component": "plop component",
+    "validate": "node scripts/validate.mjs",
+    "validate:files": "node scripts/validate-file-lines.mjs",
+    "validate:functions": "node scripts/validate-function-lines.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
