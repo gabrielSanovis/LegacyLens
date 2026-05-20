@@ -27,8 +27,8 @@ export class ParserService implements OnModuleInit {
     );
 
     try {
-      this.jsLanguage = await Language.load(jsWasmPath);
-      this.tsLanguage = await Language.load(tsWasmPath);
+      this.jsLanguage = await Parser.Language.load(jsWasmPath);
+      this.tsLanguage = await Parser.Language.load(tsWasmPath);
     } catch (e) {
       console.warn(
         'Could not load tree-sitter wasm. Parser will run in mock mode.',

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { INestApplicationContext } from '@nestjs/common';
 import { AppModule } from './app.module';
@@ -9,7 +10,7 @@ async function bootstrap() {
   const agentService = app.get<AgentService>(AgentService);
 
   const query =
-    'Explique como funciona a Saga de Login e quais as actions disparadas.';
+    'Explique como funciona a Saga de Comentarios e quais as actions disparadas.';
 
   console.log(`\n\n--- INICIANDO TESTE DO AGENTE DE COMPREENSÃO ---`);
   console.log(`Query: "${query}"\n`);
