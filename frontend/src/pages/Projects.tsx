@@ -64,9 +64,14 @@ export function Projects() {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1 className={styles.title}>LegacyLens</h1>
-        <button className={styles.logout} onClick={handleLogout}>
-          Sair
-        </button>
+        <div className={styles.headerActions}>
+          <button className={styles.settingsBtn} onClick={() => navigate('/settings')}>
+            Configurações
+          </button>
+          <button className={styles.logout} onClick={handleLogout}>
+            Sair
+          </button>
+        </div>
       </header>
 
       <section className={styles.createSection}>

@@ -157,3 +157,25 @@
 .ingestBtn:hover {
   background: rgba(124, 92, 252, 0.2);
 }
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.settingsBtn {
+  background: none;
+  border: 1px solid rgba(124, 92, 252, 0.4);
+  border-radius: 6px;
+  color: #a78bfa;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.settingsBtn:hover {
+  color: #fff;
+  border-color: #7c5cfc;
+  background: rgba(124, 92, 252, 0.1);
+}
