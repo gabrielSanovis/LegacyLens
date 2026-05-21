@@ -7,6 +7,8 @@ import { GraphModule } from './infra/graph/graph.module';
 import { QueueModule } from './infra/queue/queue.module';
 import { IngestionModule } from './ingestion/ingestion.module';
 import { ComprehensionApiModule } from './api/v1/comprehension/comprehension-api.module';
+import { ChatModule } from './api/v1/chat/chat.module';
+import { DashboardModule } from './api/v1/dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { ComprehensionApiModule } from './api/v1/comprehension/comprehension-api
     QueueModule,
     IngestionModule,
     ComprehensionApiModule,
+    ChatModule,
+    DashboardModule,
   ],
 })
 export class AppModule {}

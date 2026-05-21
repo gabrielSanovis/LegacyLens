@@ -115,10 +115,16 @@ export function Projects() {
                 )}
                 <div className={styles.actions}>
                   <button
+                    className={styles.detailsBtn}
+                    onClick={() => navigate(`/projects/${p.id}`)}
+                  >
+                    Ver Detalhes
+                  </button>
+                  <button
                     className={styles.ingestBtn}
                     onClick={() => handleIngest(p.id)}
                   >
-                    Iniciar Ingestão
+                    {p.status === 'COMPLETED' ? 'Re-ingestar' : 'Iniciar Ingestão'}
                   </button>
                   <button
                     className={styles.deleteBtn}

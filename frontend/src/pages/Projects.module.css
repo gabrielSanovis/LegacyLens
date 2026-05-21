@@ -144,6 +144,20 @@
   margin-top: 0.5rem;
 }
 
+.detailsBtn {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  color: #60a5fa;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.detailsBtn:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
 .ingestBtn {
   background: rgba(124, 92, 252, 0.1);
   border: 1px solid rgba(124, 92, 252, 0.3);

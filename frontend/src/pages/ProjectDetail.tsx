@@ -52,7 +52,25 @@ export function ProjectDetail() {
             </span>
             {status === 'QUEUED' && <p>O projeto está na fila de processamento...</p>}
             {status === 'RUNNING' && <p>Analisando arquivos e montando o Knowledge Graph...</p>}
-            {status === 'COMPLETED' && <p>A ingestão foi concluída. O grafo está disponível no Neo4j.</p>}
+            {status === 'COMPLETED' && (
+              <>
+                <p>A ingestão foi concluída. O grafo está disponível no Neo4j.</p>
+                <div className={styles.actionButtons}>
+                  <button
+                    className={styles.actionBtn}
+                    onClick={() => navigate(`/projects/${id}/chat`)}
+                  >
+                    🗨️ Abrir Chat
+                  </button>
+                  <button
+                    className={styles.actionBtn}
+                    onClick={() => navigate(`/projects/${id}/dashboard`)}
+                  >
+                    📊 Ver Dashboard
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         )}
       </section>
